@@ -1,7 +1,8 @@
 package home.work.finance;
 
 import home.work.finance.model.Category;
-import home.work.finance.repository.CategoryRepository;
+import home.work.finance.repository.CategoryRepositoryImpl;
+import home.work.finance.service.CategoryRepository;
 import org.junit.jupiter.api.Test;
 
 
@@ -10,7 +11,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CategoryRepositoryTests {
-    private static final CategoryRepository categoryRepository = new CategoryRepository();
+    private static final CategoryRepository categoryRepository = new CategoryRepositoryImpl();
 
     @Test
     void findCategoriesByUserId() {

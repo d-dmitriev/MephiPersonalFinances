@@ -1,13 +1,14 @@
 package home.work.finance.repository;
 
 import home.work.finance.model.Category;
+import home.work.finance.service.CategoryRepository;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryRepository extends FileRepository {
+public class CategoryRepositoryImpl extends FileRepository implements CategoryRepository {
     private static final String FILE_PATH = "data/categories/categories.json";
 
     protected void init() {

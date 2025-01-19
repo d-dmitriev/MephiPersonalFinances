@@ -5,56 +5,32 @@
   "transactions" : [ {
     "id" : "bb8ae7e2-832c-4ff3-8759-163ca9d1d251",
     "amount" : 20000.0,
-    "category" : {
-      "userId" : "user1",
-      "name" : "Salary",
-      "budgetLimit" : 0.0
-    },
+    "category" : "Salary",
     "date" : [ 2025, 1, 19 ]
   }, {
     "id" : "43db2fa0-2289-41c0-bd0c-3454462181ce",
     "amount" : 40000.0,
-    "category" : {
-      "userId" : "user1",
-      "name" : "Salary",
-      "budgetLimit" : 0.0
-    },
+    "category" : "Salary",
     "date" : [ 2025, 1, 19 ]
   }, {
     "id" : "f646aebb-7f64-4c86-8e1e-ee1023cd066a",
     "amount" : -300.0,
-    "category" : {
-      "userId" : "user1",
-      "name" : "Food",
-      "budgetLimit" : 4000.0
-    },
+    "category" : "Food",
     "date" : [ 2025, 1, 19 ]
   }, {
     "id" : "34514b34-93fb-4426-b4b9-3240c65ea722",
     "amount" : -300.0,
-    "category" : {
-      "userId" : "user1",
-      "name" : "Food",
-      "budgetLimit" : 4000.0
-    },
+    "category" : "Food",
     "date" : [ 2025, 1, 19 ]
   }, {
     "id" : "59a17ebf-0b88-4f2f-b373-cf0cda98c90c",
     "amount" : -3000.0,
-    "category" : {
-      "userId" : "user1",
-      "name" : "Entertainment",
-      "budgetLimit" : 3000.0
-    },
+    "category" : "Entertainment",
     "date" : [ 2025, 1, 19 ]
   }, {
     "id" : "788b8357-e130-47a7-99ee-d55a019c1197",
     "amount" : -3000.0,
-    "category" : {
-      "userId" : "user1",
-      "name" : "Public_utilities",
-      "budgetLimit" : 2500.0
-    },
+    "category" : "Public_utilities",
     "date" : [ 2025, 1, 19 ]
   } ]
 }, {

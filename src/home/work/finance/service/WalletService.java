@@ -3,8 +3,6 @@ package home.work.finance.service;
 import home.work.finance.dto.BudgetData;
 import home.work.finance.dto.Finances;
 import home.work.finance.model.*;
-import home.work.finance.repository.CategoryRepository;
-import home.work.finance.repository.WalletRepository;
 import home.work.finance.util.DataValidator;
 
 import java.time.LocalDate;
@@ -91,8 +89,8 @@ public class WalletService {
         double totalExpenses = 0;
 
         for (Wallet wallet : wallets) {
-            totalIncome += wallet.getTransactions().stream().filter(t -> t.getAmount() > 0).reduce(0.0, (w1, w2) -> w1 + w2.getAmount(), Double::sum);
-            totalExpenses += wallet.getTransactions().stream().filter(t -> t.getAmount() < 0).reduce(0.0, (w1, w2) -> w1 + w2.getAmount(), Double::sum);
+            totalIncome += wallet.getTransactions().stream().filter(transaction -> transaction.getAmount() > 0).reduce(0.0, (amount, transaction) -> amount + transaction.getAmount(), Double::sum);
+            totalExpenses += wallet.getTransactions().stream().filter(transaction -> transaction.getAmount() < 0).reduce(0.0, (amount, transaction) -> amount + transaction.getAmount(), Double::sum);
         }
 
         return new Finances(totalIncome, Math.abs(totalExpenses));
@@ -113,8 +111,8 @@ public class WalletService {
 
         List<Wallet> wallets = walletRepository.loadWalletsByUser(user.getUsername());
         for (Wallet wallet : wallets) {
-            totalIncome += wallet.getTransactions().stream().filter(t -> t.getAmount() > 0).reduce(0.0, (w1, w2) -> w1 + w2.getAmount(), Double::sum);
-            totalExpenses += wallet.getTransactions().stream().filter(t -> t.getAmount() < 0).reduce(0.0, (w1, w2) -> w1 + w2.getAmount(), Double::sum);
+            totalIncome += wallet.getTransactions().stream().filter(transaction -> transaction.getAmount() > 0).reduce(0.0, (amount, transaction) -> amount + transaction.getAmount(), Double::sum);
+            totalExpenses += wallet.getTransactions().stream().filter(transaction -> transaction.getAmount() < 0).reduce(0.0, (amount, transaction) -> amount + transaction.getAmount(), Double::sum);
         }
 
         return Math.abs(totalExpenses) > totalIncome;
@@ -130,7 +128,7 @@ public class WalletService {
         }
 
         double adjustedAmount = isIncome ? amount : -amount;
-        Transaction transaction = new Transaction(adjustedAmount, category, LocalDate.now());
+        Transaction transaction = new Transaction(adjustedAmount, category.getName(), LocalDate.now());
         targetWallet.addTransaction(transaction);
 
         walletRepository.saveWallet(targetWallet);
@@ -167,7 +165,7 @@ public class WalletService {
                     }
 
                     transaction.setAmount(newAmount);
-                    transaction.setCategory(newCategory);
+                    transaction.setCategory(newCategory.getName());
                     transaction.setDate(LocalDate.parse(newDateStr, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
                     walletRepository.saveWallet(wallet);

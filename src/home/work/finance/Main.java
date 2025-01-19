@@ -1,19 +1,17 @@
 package home.work.finance;
 
-import home.work.finance.repository.CategoryRepository;
-import home.work.finance.repository.UserRepository;
-import home.work.finance.repository.WalletRepository;
-import home.work.finance.service.BudgetService;
-import home.work.finance.service.UserService;
-import home.work.finance.service.WalletService;
+import home.work.finance.repository.CategoryRepositoryImpl;
+import home.work.finance.repository.UserRepositoryImpl;
+import home.work.finance.repository.WalletRepositoryImpl;
+import home.work.finance.service.*;
 
 import static home.work.finance.ui.Menu.loginMenu;
 
 public class Main {
     public static void main(String[] args) {
-        UserRepository userRepository = new UserRepository();
-        WalletRepository walletRepository = new WalletRepository();
-        CategoryRepository categoryRepository = new CategoryRepository();
+        UserRepository userRepository = new UserRepositoryImpl();
+        WalletRepository walletRepository = new WalletRepositoryImpl();
+        CategoryRepository categoryRepository = new CategoryRepositoryImpl();
 
         UserService userService = new UserService(userRepository, walletRepository, categoryRepository);
         WalletService walletService = new WalletService(walletRepository, categoryRepository);

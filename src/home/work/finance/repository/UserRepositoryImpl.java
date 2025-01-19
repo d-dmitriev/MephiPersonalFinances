@@ -1,13 +1,14 @@
 package home.work.finance.repository;
 
 import home.work.finance.model.User;
+import home.work.finance.service.UserRepository;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserRepository extends FileRepository {
+public class UserRepositoryImpl extends FileRepository implements UserRepository {
     private static final String FILE_PATH = "data/users/users.json";
 
     protected void init() {

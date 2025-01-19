@@ -1,13 +1,14 @@
 package home.work.finance.repository;
 
 import home.work.finance.model.Wallet;
+import home.work.finance.service.WalletRepository;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WalletRepository extends FileRepository {
+public class WalletRepositoryImpl extends FileRepository implements WalletRepository {
     private static final String FILE_PATH = "data/wallets/wallets.json";
 
     protected void init() {

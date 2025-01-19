@@ -2,9 +2,11 @@ package home.work.finance;
 
 import home.work.finance.dto.Budget;
 import home.work.finance.model.User;
-import home.work.finance.repository.CategoryRepository;
-import home.work.finance.repository.WalletRepository;
+import home.work.finance.repository.CategoryRepositoryImpl;
+import home.work.finance.repository.WalletRepositoryImpl;
 import home.work.finance.service.BudgetService;
+import home.work.finance.service.CategoryRepository;
+import home.work.finance.service.WalletRepository;
 import home.work.finance.service.WalletService;
 import org.junit.jupiter.api.Test;
 
@@ -14,9 +16,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BudgetServiceTest {
-    private static final WalletRepository walletRepository = new WalletRepository();
-    private static final CategoryRepository categoryRepository = new CategoryRepository();
-    private static final BudgetService budgetService = new BudgetService(new WalletRepository(), categoryRepository);
+    private static final WalletRepository walletRepository = new WalletRepositoryImpl();
+    private static final CategoryRepository categoryRepository = new CategoryRepositoryImpl();
+    private static final BudgetService budgetService = new BudgetService(walletRepository, categoryRepository);
     private static final WalletService walletService = new WalletService(walletRepository, categoryRepository);
 
     @Test

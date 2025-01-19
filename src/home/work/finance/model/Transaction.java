@@ -9,13 +9,13 @@ import java.util.UUID;
 public class Transaction {
     private final String id;
     private double amount;
-    private Category category;
+    private String category;
     private LocalDate date;
 
     @JsonCreator
     public Transaction(@JsonProperty("id") String id,
                        @JsonProperty("amount") double amount,
-                       @JsonProperty("category") Category category,
+                       @JsonProperty("category") String category,
                        @JsonProperty("date") LocalDate date) {
         this.id = id != null ? id : UUID.randomUUID().toString();
         this.amount = amount;
@@ -23,7 +23,7 @@ public class Transaction {
         this.date = date;
     }
 
-    public Transaction(double amount, Category category, LocalDate date) {
+    public Transaction(double amount, String category, LocalDate date) {
         this(UUID.randomUUID().toString(), amount, category, date);
     }
 
@@ -39,11 +39,11 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public Category getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 

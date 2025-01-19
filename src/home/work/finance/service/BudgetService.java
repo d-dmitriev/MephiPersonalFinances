@@ -2,8 +2,6 @@ package home.work.finance.service;
 
 import home.work.finance.dto.Budget;
 import home.work.finance.model.*;
-import home.work.finance.repository.CategoryRepository;
-import home.work.finance.repository.WalletRepository;
 import home.work.finance.util.DataValidator;
 
 import java.util.*;
@@ -45,6 +43,7 @@ public class BudgetService {
             }
             list.add(item);
         }, ArrayList::addAll);
+        updateWalletsCategory(user.getUsername(), currentName, newName);
         categoryRepository.saveCategories(categories);
     }
 
@@ -78,7 +77,7 @@ public class BudgetService {
         }, ArrayList::addAll);
 
         for (Transaction transaction : transactions) {
-            String categoryName = transaction.getCategory().getName();
+            String categoryName = transaction.getCategory();
             if (transaction.getAmount() < 0) {
                 expensesByCategory.put(categoryName,
                         expensesByCategory.getOrDefault(categoryName, 0.0) + transaction.getAmount());
@@ -136,11 +135,27 @@ public class BudgetService {
 
         for (Transaction transaction : transactions) {
             if (transaction.getAmount() < 0) {
-                String categoryName = transaction.getCategory().getName();
+                String categoryName = transaction.getCategory();
                 expensesByCategory.put(categoryName,
                         expensesByCategory.getOrDefault(categoryName, 0.0) + transaction.getAmount());
             }
         }
         return expensesByCategory;
+    }
+
+    private void updateWalletsCategory(String userName, String oldCategory, String newCategory) {
+        List<Wallet> wallets = walletRepository.loadWallets().stream().collect(ArrayList::new, (list, item) -> {
+            if (item.getUserId().equals(userName)) {
+                item.getTransactions().replaceAll(transaction -> {
+                    if (transaction.getCategory().equals(oldCategory)) {
+                        transaction.setCategory(newCategory);
+                    }
+                    return transaction;
+                });
+            }
+            list.add(item);
+        }, ArrayList::addAll);
+
+        walletRepository.saveWallets(wallets);
     }
 }

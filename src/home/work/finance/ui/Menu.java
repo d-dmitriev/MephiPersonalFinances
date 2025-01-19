@@ -237,7 +237,7 @@ public class Menu {
                                     printFormatedLine("  - Дата: %s, Сумма: %.2f, Категория: %s, ID: %s\n",
                                             transaction.getDate(),
                                             transaction.getAmount(),
-                                            transaction.getCategory().getName(),
+                                            transaction.getCategory(),
                                             transaction.getId())
                             );
                         }
@@ -408,7 +408,7 @@ public class Menu {
                                 } else {
                                     printLine("Транзакции:");
                                     budgetData.transactions().forEach(transaction -> printFormatedLine("  - Дата: %s, Сумма: %.2f, Категория: %s\n",
-                                            transaction.getDate(), transaction.getAmount(), transaction.getCategory().getName()));
+                                            transaction.getDate(), transaction.getAmount(), transaction.getCategory()));
                                 }
                             });
                         }
@@ -452,7 +452,7 @@ public class Menu {
     private static void checkTransaction(WalletService walletService, BudgetService budgetService, User currentUser) {
         Set<String> warnings = budgetService.checkBudgetLimits(currentUser);
         if (!warnings.isEmpty()) {
-            warnings.forEach(w -> printLineWarning("Лимит превышен для категории: " + w));
+            warnings.forEach(warning -> printLineWarning("Лимит превышен для категории: " + warning));
         }
 
         if (walletService.checkExpenseExceedsIncome(currentUser)) {

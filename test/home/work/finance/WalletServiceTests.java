@@ -2,20 +2,20 @@ package home.work.finance;
 
 import home.work.finance.dto.Finances;
 import home.work.finance.model.User;
-import home.work.finance.repository.CategoryRepository;
-import home.work.finance.repository.WalletRepository;
+import home.work.finance.repository.CategoryRepositoryImpl;
+import home.work.finance.repository.WalletRepositoryImpl;
 import home.work.finance.service.BudgetService;
+import home.work.finance.service.CategoryRepository;
+import home.work.finance.service.WalletRepository;
 import home.work.finance.service.WalletService;
 import org.junit.jupiter.api.Test;
-
-import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class WalletServiceTests {
-    private static final CategoryRepository categoryRepository = new CategoryRepository();
-    private static final WalletRepository walletRepository = new WalletRepository();
+    private static final CategoryRepository categoryRepository = new CategoryRepositoryImpl();
+    private static final WalletRepository walletRepository = new WalletRepositoryImpl();
     private static final BudgetService budgetService = new BudgetService(walletRepository, categoryRepository);
     private static final WalletService walletService = new WalletService(walletRepository, categoryRepository);
 

@@ -3,11 +3,9 @@ package home.work.finance.service;
 import home.work.finance.model.Category;
 import home.work.finance.model.User;
 import home.work.finance.model.Wallet;
-import home.work.finance.repository.CategoryRepository;
-import home.work.finance.repository.UserRepository;
-import home.work.finance.repository.WalletRepository;
 import home.work.finance.util.DataValidator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserService {
@@ -65,14 +63,12 @@ public class UserService {
             throw new IllegalArgumentException("Неверный старый пароль.");
         }
 
-        List<User> users = userRepository.loadUsers();
-
-        for (User user : users) {
-            if (user.getUsername().equals(currentUser.getUsername())) {
-                user.setPassword(newPassword);
-                break;
+        List<User> users = userRepository.loadUsers().stream().collect(ArrayList::new, (list, item) -> {
+            if (item.getUsername().equals(currentUser.getUsername())) {
+                item.setPassword(newPassword);
             }
-        }
+            list.add(item);
+        }, ArrayList::addAll);
 
         userRepository.saveUsers(users);
         currentUser.setPassword(newPassword);
@@ -89,14 +85,12 @@ public class UserService {
             throw new IllegalArgumentException("Пользователь с таким логином уже существует.");
         }
 
-        List<User> users = userRepository.loadUsers();
-
-        for (User user : users) {
-            if (user.getUsername().equals(currentUser.getUsername())) {
-                user.setUsername(newUsername);
-                break;
+        List<User> users = userRepository.loadUsers().stream().collect(ArrayList::new, (list, item) -> {
+            if (item.getUsername().equals(currentUser.getUsername())) {
+                item.setUsername(newUsername);
             }
-        }
+            list.add(item);
+        }, ArrayList::addAll);
 
         userRepository.saveUsers(users);
         updateWalletsUserId(currentUser.getUsername(), newUsername);
@@ -105,21 +99,23 @@ public class UserService {
     }
 
     private void updateWalletsUserId(String oldUserId, String newUserId) {
-        List<Wallet> wallets = walletRepository.loadWalletsByUser(oldUserId);
-
-        for (Wallet wallet : wallets) {
-            wallet.setUserId(newUserId);
-        }
+        List<Wallet> wallets = walletRepository.loadWallets().stream().collect(ArrayList::new, (list, item) -> {
+            if (item.getUserId().equals(oldUserId)) {
+                item.setUserId(newUserId);
+            }
+            list.add(item);
+        }, ArrayList::addAll);
 
         walletRepository.saveWallets(wallets);
     }
 
     private void updateCategoriesUserId(String oldUserId, String newUserId) {
-        List<Category> categories = categoryRepository.findCategoriesByUserId(oldUserId);
-
-        for (Category category : categories) {
-            category.setUserId(newUserId);
-        }
+        List<Category> categories = categoryRepository.loadCategories().stream().collect(ArrayList::new, (list, item) -> {
+            if (item.getUserId().equals(oldUserId)) {
+                item.setUserId(newUserId);
+            }
+            list.add(item);
+        }, ArrayList::addAll);
 
         categoryRepository.saveCategories(categories);
     }
