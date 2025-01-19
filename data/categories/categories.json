@@ -1,0 +1,17 @@
+[ {
+  "userId" : "user1",
+  "name" : "Food",
+  "budgetLimit" : 4000.0
+}, {
+  "userId" : "user1",
+  "name" : "Entertainment",
+  "budgetLimit" : 3000.0
+}, {
+  "userId" : "user1",
+  "name" : "Public_utilities",
+  "budgetLimit" : 2500.0
+}, {
+  "userId" : "user1",
+  "name" : "Salary",
+  "budgetLimit" : 0.0
+} ]
